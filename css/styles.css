@@ -41,7 +41,7 @@ button {
 }
 
 .paperbackground {
-  background: url("../images/ptr-bgd.jpg") center / cover no-repeat;
+  background: url("../images/ptr-bgd.webp") center / cover no-repeat;
 }
 
 /* church background icon image */
@@ -61,7 +61,7 @@ button {
   max-height: 600px;
   z-index: -1;
   opacity: 0.15;
-  background: url("../images/parish-logo.png") bottom right / contain no-repeat;
+  background: url("../images/parish-logo.webp") bottom right / contain no-repeat;
   pointer-events: none;
 }
 
@@ -81,7 +81,7 @@ button {
   max-height: 290px;
   z-index: -1;
   opacity: 0.15;
-  background: url("../images/parish-logo.png") bottom left / contain no-repeat;
+  background: url("../images/parish-logo.webp") bottom left / contain no-repeat;
   pointer-events: none;
 }
 
@@ -158,7 +158,7 @@ p {
   border-radius: 0 0 13px 13px;
   background:
     linear-gradient(0deg, rgba(30, 18, 8, 0.62), rgba(30, 18, 8, 0.36)),
-    url("../images/hero-image.jpeg") center 78% / cover no-repeat,
+    url("../images/hero-image.webp") center 78% / cover no-repeat,
     #7a6145;
 }
 .hero::after {
@@ -198,7 +198,7 @@ p {
 /* second hero */
 .secondHero {
   min-height: 300px;
-  background: url("../images/ptr-bgd.jpg") center / cover no-repeat;
+  background: url("../images/ptr-bgd.webp") center / cover no-repeat;
   display: flex;
   align-items: center;
 }
@@ -425,7 +425,7 @@ p {
   padding: 34px 0 55px;
   position: relative;
   overflow: hidden;
-  background: url("../images/ptr-bgd.jpg") center / cover no-repeat;
+  background: url("../images/ptr-bgd.webp") center / cover no-repeat;
 }
 
 .services-sec {
