@@ -1,0 +1,174 @@
+<!doctype html>
+<html dir="rtl" lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#a40000" />
+    <meta
+      name="description"
+      content="رعية مار اسطفان - البترون، أخبار الرعية، مواعيد القداديس والحياة الروحية والخدمة الاجتماعية."
+    />
+    <title>رعية مار اسطفان - البترون</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link
+      rel="shortcut icon"
+      href="images/parish-logo.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/gh/chedilex/chedilex-assets-footer@main/footer.js?v=1.0.2"></script>
+  </head>
+
+  <body>
+    <div class="top-strip" aria-hidden="true"></div>
+
+    <!-- header -->
+    <header class="navbar">
+      <div class="container nav-inner">
+        <a class="brand" href="#home" aria-label="رعية مار اسطفان - البترون">
+          <img
+            src="images/parish-logo.png"
+            alt="شعار رعية مار اسطفان"
+            onerror="this.style.display = 'none'"
+          />
+        </a>
+        <nav class="nav-links" id="navLinks" aria-label="القائمة الرئيسية">
+          <a href="index.html">رئيسية</a>
+          <a href="history.html">تاريخنا</a>
+          <a href="news.html">أخبار الرعية</a>
+          <a href="#services">الجماعات</a>
+          <a href="#message">رسالة الأحد</a>
+        </nav>
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          aria-label="فتح القائمة"
+          aria-expanded="false"
+        >
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero Section -->
+      <section class="secondHero churchbackground-left">
+        <div class="container">
+          <h2>أخــبــار الــرعــيــة</h2>
+        </div>
+      </section>
+
+      <!-- all news section -->
+      <section></section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="message" class="paperbackground">
+      <div class="container footer-main">
+        <section class="footer-brand">
+          <img
+            src="images/parish-logo.png"
+            alt="شعار الرعية"
+            onerror="this.style.display = 'none'"
+          />
+          <div>
+            <h3>رعية مار اسطفان - البترون</h3>
+            <p>
+              تاريخ عريق من الإيمان والخدمة في قلب البترون. نسعى معًا لنعيش
+              رسالة المحبة والرجاء.
+            </p>
+            <div class="socials">
+              <a href="#" aria-label="فيسبوك"
+                ><i class="fa-brands fa-facebook-f"></i
+              ></a>
+              <a href="#" aria-label="إنستغرام"
+                ><i class="fa-brands fa-instagram"></i
+              ></a>
+            </div>
+          </div>
+        </section>
+        <section class="footer-col">
+          <h3>كهنة الرعية:</h3>
+          <p>هاتف: ٩٦١ ٩-٩١٤٤٣٣</p>
+          <p>هاتف: ٩٦١ ٩-٩٣٣٥٠١</p>
+        </section>
+        <section class="footer-col">
+          <h3>دوائر الأبرشية:</h3>
+          <p>هاتف: ٩٦١ ٩-٩١٤٤٣٣</p>
+          <p>هاتف: ٩٦١ ٩-٩٣٣٥٠١</p>
+        </section>
+      </div>
+      <div class="copyright">
+        <div class="container">
+          <span>C 2026 Copyright St.Estephan.ORG || All Right Reserved</span>
+          <div class="chedilex-footer-container"></div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- back to top button -->
+    <a class="to-top" href="#home" id="toTop" aria-label="العودة إلى الأعلى"
+      ><i class="fa-solid fa-arrow-up"></i
+    ></a>
+
+    <!-- Scripts -->
+    <script>
+      const navToggle = document.getElementById("navToggle");
+      const navLinks = document.getElementById("navLinks");
+
+      navToggle.addEventListener("click", () => {
+        const isOpen = navLinks.classList.toggle("open");
+        navToggle.setAttribute("aria-expanded", String(isOpen));
+        navToggle.innerHTML = isOpen
+          ? '<i class="fa-solid fa-xmark"></i>'
+          : '<i class="fa-solid fa-bars"></i>';
+      });
+
+      navLinks.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          navLinks.classList.remove("open");
+          navToggle.setAttribute("aria-expanded", "false");
+          navToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+        });
+      });
+
+      document
+        .getElementById("moreNews")
+        .addEventListener("click", function () {
+          const list = document.getElementById("newsList");
+          const extra = [
+            [
+              "إعلانات الرعية ومواعيد النشاطات القادمة",
+              "إعلانات · أخبار الرعية",
+            ],
+            ["معًا في الصلاة وخدمة أبناء المجتمع", "الحياة الرعوية · نشاطات"],
+          ];
+          extra.forEach(([title, category]) => {
+            const card = document.createElement("a");
+            card.className = "news-card";
+            card.href = "#services";
+            card.innerHTML =
+              '<img class="news-thumb" src="images/church-news.jpg" alt="" onerror="this.src=\'images/hero-image.jpeg\';this.onerror=null">' +
+              '<div class="news-copy"><h3></h3><p></p></div>' +
+              '<i class="fa-solid fa-chevron-left news-arrow"></i>';
+            card.querySelector("h3").textContent = title;
+            card.querySelector("p").textContent = category;
+            list.appendChild(card);
+          });
+          this.disabled = true;
+          this.textContent = "تم عرض الأخبار الإضافية";
+          this.style.opacity = ".7";
+        });
+    </script>
+  </body>
+</html>
