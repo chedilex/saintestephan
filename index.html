@@ -30,7 +30,43 @@
   </head>
 
   <body>
-    <div class="top-strip" aria-hidden="true"></div>
+    <!-- skeleton loading -->
+    <div id="pageSkeleton" aria-hidden="true">
+      <div class="sk-top"></div>
+      <div class="sk-nav"></div>
+      <div class="sk-hero skeleton-shimmer"></div>
+      <div class="container">
+        <div class="sk-line sk-title skeleton-shimmer"></div>
+        <div class="sk-line skeleton-shimmer"></div>
+        <div class="sk-line skeleton-shimmer"></div>
+        <div class="sk-line sk-short skeleton-shimmer"></div>
+        <div class="sk-grid">
+          <div class="sk-card">
+            <div class="sk-media skeleton-shimmer"></div>
+            <div class="sk-body">
+              <div class="sk-line skeleton-shimmer"></div>
+              <div class="sk-line sk-short skeleton-shimmer"></div>
+            </div>
+          </div>
+          <div class="sk-card">
+            <div class="sk-media skeleton-shimmer"></div>
+            <div class="sk-body">
+              <div class="sk-line skeleton-shimmer"></div>
+              <div class="sk-line sk-short skeleton-shimmer"></div>
+            </div>
+          </div>
+          <div class="sk-card">
+            <div class="sk-media skeleton-shimmer"></div>
+            <div class="sk-body">
+              <div class="sk-line skeleton-shimmer"></div>
+              <div class="sk-line sk-short skeleton-shimmer"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="top-strip" aria-hidden="true" id="header"></div>
 
     <!-- header -->
     <header class="navbar">
@@ -304,57 +340,8 @@
     </footer>
 
     <!-- back to top button -->
-    <a class="to-top" href="#home" id="toTop" aria-label="العودة إلى الأعلى"
+    <a class="to-top" href="#header" id="toTop" aria-label="العودة إلى الأعلى"
       ><i class="fa-solid fa-arrow-up"></i
     ></a>
-    <script>
-      const navToggle = document.getElementById("navToggle");
-      const navLinks = document.getElementById("navLinks");
-
-      navToggle.addEventListener("click", () => {
-        const isOpen = navLinks.classList.toggle("open");
-        navToggle.setAttribute("aria-expanded", String(isOpen));
-        navToggle.innerHTML = isOpen
-          ? '<i class="fa-solid fa-xmark"></i>'
-          : '<i class="fa-solid fa-bars"></i>';
-      });
-
-      navLinks.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => {
-          navLinks.classList.remove("open");
-          navToggle.setAttribute("aria-expanded", "false");
-          navToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
-        });
-      });
-
-      // Expand the news list with a few additional example entries.
-      document
-        .getElementById("moreNews")
-        .addEventListener("click", function () {
-          const list = document.getElementById("newsList");
-          const extra = [
-            [
-              "إعلانات الرعية ومواعيد النشاطات القادمة",
-              "إعلانات · أخبار الرعية",
-            ],
-            ["معًا في الصلاة وخدمة أبناء المجتمع", "الحياة الرعوية · نشاطات"],
-          ];
-          extra.forEach(([title, category]) => {
-            const card = document.createElement("a");
-            card.className = "news-card";
-            card.href = "#services";
-            card.innerHTML =
-              '<img class="news-thumb" src="images/church-news.webp" alt="">' +
-              '<div class="news-copy"><h3></h3><p></p></div>' +
-              '<i class="fa-solid fa-chevron-left news-arrow"></i>';
-            card.querySelector("h3").textContent = title;
-            card.querySelector("p").textContent = category;
-            list.appendChild(card);
-          });
-          this.disabled = true;
-          this.textContent = "تم عرض الأخبار الإضافية";
-          this.style.opacity = ".7";
-        });
-    </script>
   </body>
 </html>
