@@ -25,8 +25,9 @@
       type="image/x-icon"
     />
     <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/header.js" defer></script>
     <script src="js/script.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/gh/chedilex/chedilex-assets-footer@main/footer.js?v=1.0.2"></script>
+    <script src="js/footers.js" defer></script>
   </head>
 
   <body>
@@ -66,35 +67,10 @@
       </div>
     </div>
 
-    <div class="top-strip" aria-hidden="true" id="header"></div>
+    <div class="top-strip" aria-hidden="true"></div>
 
     <!-- header -->
-    <header class="navbar">
-      <div class="container nav-inner">
-        <a class="brand" href="#home" aria-label="رعية مار اسطفان - البترون">
-          <img
-            src="images/parish-logo.webp"
-            alt="شعار رعية مار اسطفان"
-            onerror="this.style.display = 'none'"
-          />
-        </a>
-        <nav class="nav-links" id="navLinks" aria-label="القائمة الرئيسية">
-          <a href="index.html">رئيسية</a>
-          <a href="history.html">تاريخنا</a>
-          <a href="news.html">أخبار الرعية</a>
-          <a href="#services">الجماعات</a>
-          <a href="#message">رسالة الأحد</a>
-        </nav>
-        <button
-          class="nav-toggle"
-          id="navToggle"
-          aria-label="فتح القائمة"
-          aria-expanded="false"
-        >
-          <i class="fa-solid fa-bars"></i>
-        </button>
-      </div>
-    </header>
+    <header id="header"></header>
 
     <main>
       <!-- Hero Section -->
@@ -143,48 +119,7 @@
     </main>
 
     <!-- Footer -->
-    <footer id="message" class="paperbackground">
-      <div class="container footer-main">
-        <section class="footer-brand">
-          <img
-            src="images/parish-logo.webp"
-            alt="شعار الرعية"
-            onerror="this.style.display = 'none'"
-          />
-          <div>
-            <h3>رعية مار اسطفان - البترون</h3>
-            <p>
-              تاريخ عريق من الإيمان والخدمة في قلب البترون. نسعى معًا لنعيش
-              رسالة المحبة والرجاء.
-            </p>
-            <div class="socials">
-              <a href="#" aria-label="فيسبوك"
-                ><i class="fa-brands fa-facebook-f"></i
-              ></a>
-              <a href="#" aria-label="إنستغرام"
-                ><i class="fa-brands fa-instagram"></i
-              ></a>
-            </div>
-          </div>
-        </section>
-        <section class="footer-col">
-          <h3>كهنة الرعية:</h3>
-          <p>هاتف: ٩٦١ ٩-٩١٤٤٣٣</p>
-          <p>هاتف: ٩٦١ ٩-٩٣٣٥٠١</p>
-        </section>
-        <section class="footer-col">
-          <h3>دوائر الأبرشية:</h3>
-          <p>هاتف: ٩٦١ ٩-٩١٤٤٣٣</p>
-          <p>هاتف: ٩٦١ ٩-٩٣٣٥٠١</p>
-        </section>
-      </div>
-      <div class="copyright">
-        <div class="container">
-          <span>C 2026 Copyright St.Estephan.ORG || All Right Reserved</span>
-          <div class="chedilex-footer-container"></div>
-        </div>
-      </div>
-    </footer>
+    <footer id="footer" class="footer" data-footer="paper"></footer>
 
     <!-- back to top button -->
     <a class="to-top" href="#header" id="toTop" aria-label="العودة إلى الأعلى"

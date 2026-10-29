@@ -9,6 +9,7 @@
   --shadow: 0 3px 10px rgba(40, 28, 18, 0.16);
   --radius: 7px;
   --content: 1180px;
+  --tranformLateY: translateY(-5px);
 }
 * {
   box-sizing: border-box;
@@ -105,7 +106,9 @@ img.is-loaded {
   overflow: hidden;
   padding: 0 0 40px;
   background: #fff;
-  transition: opacity 0.4s ease, visibility 0.4s ease;
+  transition:
+    opacity 0.4s ease,
+    visibility 0.4s ease;
 }
 
 .page-ready #pageSkeleton {
@@ -347,10 +350,6 @@ p {
   font-weight: 800;
   line-height: 1.7;
 }
-.hero .cross {
-  color: #e8d8a4;
-  margin-inline-start: 8px;
-}
 
 /* second hero */
 .secondHero {
@@ -391,9 +390,37 @@ p {
   box-shadow: var(--shadow);
 }
 .mass-card {
+  position: relative;
+  border-radius: var(--radius);
   padding: 15px 20px;
   margin-bottom: 13px;
+  box-shadow: 0 4px 14px rgba(40, 28, 18, 0.1);
+  overflow: hidden;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
+
+.mass-card::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--red);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.mass-card:hover {
+  transform: var(--tranformLateY);
+  box-shadow: 0 10px 24px rgba(40, 28, 18, 0.18);
+}
+
+.mass-card:hover::before {
+  opacity: 1;
+}
+
 .mass-card h3 {
   margin: 0 0 5px;
   color: var(--red);
@@ -419,7 +446,7 @@ p {
   gap: 14px;
   flex-direction: row;
   background: #fff;
-  border-radius: 12px;
+  border-radius: var(--radius);
   box-shadow: 0 4px 14px rgba(40, 28, 18, 0.1);
   overflow: hidden;
   transition:
@@ -433,12 +460,12 @@ p {
   top: 0;
   bottom: 0;
   width: 4px;
-  background: linear-gradient(180deg, var(--red), var(--red-soft));
+  background: var(--red);
   opacity: 0;
   transition: opacity 0.25s ease;
 }
 .news-card:hover {
-  transform: translateY(-3px);
+  transform: var(--tranformLateY);
   box-shadow: 0 10px 24px rgba(40, 28, 18, 0.18);
 }
 .news-card:hover::before {
@@ -453,9 +480,6 @@ p {
   object-fit: cover;
   background: linear-gradient(145deg, #d9c7ae, #b88b5d);
   transition: transform 0.35s ease;
-}
-.news-card:hover .news-thumb {
-  transform: scale(1.04);
 }
 
 .news-copy {
@@ -472,27 +496,18 @@ p {
   color: var(--ink);
   overflow: hidden;
 }
+
+.alert h3 {
+  color: var(--red);
+}
+
 .news-copy p {
   margin: 0;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  align-self: flex-start;
-  padding: 2px 10px;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 700;
-  color: var(--red);
-  background: #fbeeee;
-  border-radius: 20px;
-  letter-spacing: 0.2px;
+  color: var(--muted);
 }
-.news-copy p::before {
-  content: "";
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--red);
-}
+
 .news-card .news-arrow {
   flex: 0 0 auto;
   color: #c9b8b8;
@@ -527,7 +542,7 @@ p {
 }
 .read-more:hover {
   background: var(--red-dark);
-  transform: translateY(-1px);
+  transform: var(--tranformLateY);
 }
 
 /* News section */
@@ -555,7 +570,7 @@ p {
 }
 
 .article-news-card:hover {
-  transform: translateY(-10px);
+  transform: var(--tranformLateY);
 }
 
 .article-news-image {
@@ -642,7 +657,7 @@ p {
   position: relative;
   color: var(--red);
   font-size: 20px;
-  margin: 0 0 50px;
+  margin: 0 0 30px;
   font-weight: 800;
 }
 
@@ -718,7 +733,7 @@ p {
   transition: transform 0.2s;
 }
 .service-card:hover {
-  transform: translateY(-5px);
+  transform: var(--tranformLateY);
 }
 .service-icon {
   color: #aaa;
@@ -794,6 +809,51 @@ p {
   height: 100%;
 }
 
+/* religions groups page */
+.groups-icons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 30px;
+}
+
+.groups-icons .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.groups-icons img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  border: 5px solid var(--red);
+}
+.groups-icons img:hover {
+  transform: scale(1.1);
+}
+
+/* risele page */
+.risele-group {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.riseleimg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.downloadbtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* footer */
 footer {
   background: #fff;
@@ -805,13 +865,18 @@ footer {
   gap: 36px;
   align-items: start;
 }
+
+.footer-col {
+  display: block;
+}
+
 .footer-col h3 {
   font-size: 15px;
   color: var(--red);
   margin: 0 0 13px;
   font-weight: 800;
 }
-.footer-col p {
+.footer-col a {
   font-size: 15px;
   color: var(--red-soft);
   margin: 8px 0;
@@ -836,21 +901,43 @@ footer {
   display: flex;
   gap: 17px;
   margin-top: 14px;
-  color: #a56d6d;
-  font-size: 25px;
 }
+
+.socials a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--red-soft);
+  color: var(--paper);
+  width: 30px;
+  height: 30px;
+  padding: 17px;
+  font-size: 18px;
+  border-radius: 50%;
+}
+
 .copyright {
   background: var(--red);
   color: #fff;
-  font-size: 12px;
   padding: 9px 0;
   direction: ltr;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .copyright .container {
   display: flex;
   justify-content: space-between;
   gap: 15px;
   align-items: center;
+}
+
+.copyright .container span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+  font-size: 12px;
 }
 
 .chedilex-footer-content {
@@ -900,7 +987,7 @@ footer {
     min-height: 600px;
   }
 }
-@media (max-width: 760px) {
+@media (max-width: 800px) {
   .container {
     width: min(100% - 30px, var(--content));
   }
@@ -918,7 +1005,7 @@ footer {
     display: block;
   }
   .nav-links {
-    display: none;
+    display: flex;
     position: absolute;
     top: 52px;
     inset-inline: 0;
@@ -927,11 +1014,17 @@ footer {
     flex-direction: column;
     align-items: stretch;
     gap: 0;
+    opacity: 0;
     box-shadow: 0 8px 12px #0002;
+    transform: translateX(100%);
+    transition: all 0.5s ease-in-out;
   }
+
   .nav-links.open {
-    display: flex;
+    opacity: 1;
+    transform: translateX(0);
   }
+
   .nav-links a {
     padding: 9px 0;
     border-bottom: 1px solid #ffffff20;
@@ -987,6 +1080,11 @@ footer {
     min-height: 0;
     padding: 25px 22px;
   }
+
+  .risele-group {
+    grid-template-columns: 1fr;
+  }
+
   .footer-main {
     grid-template-columns: 1fr 1fr;
     gap: 24px;
@@ -997,6 +1095,7 @@ footer {
   }
   .copyright .container {
     flex-direction: column;
+    justify-content: center;
     align-items: flex-start;
     gap: 2px;
   }

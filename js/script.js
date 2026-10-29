@@ -1,3 +1,8 @@
+/* ==========================================================
+   Parish website – shared scripts
+   All page behaviour lives here (no inline JS in the HTML).
+   ========================================================== */
+
 document.addEventListener("DOMContentLoaded", function () {
   initImageSkeleton();
   initNavToggle();
@@ -13,9 +18,6 @@ function initImageSkeleton() {
   );
 
   images.forEach((img) => {
-    // skip images we've already handled (e.g. bfcache restore)
-    if (img.classList.contains("is-loaded")) return;
-
     const el = img.parentElement;
     if (el && el !== document.body && !el.classList.contains("skel-box")) {
       el.classList.add("skel-box");
@@ -29,40 +31,12 @@ function initImageSkeleton() {
     img.classList.add("is-loading");
 
     if (img.complete) {
+      // already in cache → let the browser paint the loaded state
       requestAnimationFrame(done);
     } else {
       img.addEventListener("load", done, { once: true });
       img.addEventListener("error", done, { once: true });
     }
-  });
-}
-
-/* ---------- mobile navigation ---------- */
-function initNavToggle() {
-  const navToggle = document.getElementById("navToggle");
-  const navLinks = document.getElementById("navLinks");
-  if (!navToggle || !navLinks) return;
-
-  const closeMenu = () => {
-    navLinks.classList.remove("open");
-    navToggle.setAttribute("aria-expanded", "false");
-    navToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
-  };
-
-  navToggle.addEventListener("click", () => {
-    const isOpen = navLinks.classList.toggle("open");
-    navToggle.setAttribute("aria-expanded", String(isOpen));
-    navToggle.innerHTML = isOpen
-      ? '<i class="fa-solid fa-xmark"></i>'
-      : '<i class="fa-solid fa-bars"></i>';
-  });
-
-  navLinks.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", closeMenu);
-  });
-
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > 760) closeMenu();
   });
 }
 
@@ -117,10 +91,8 @@ function initPageSkeleton() {
 
   const hideSkeleton = () => {
     body.classList.add("page-ready");
-    // look it up again, the original node may already be gone
-    const current = document.getElementById("pageSkeleton");
-    if (current) {
-      setTimeout(() => current.remove(), 450);
+    if (skeleton) {
+      setTimeout(() => skeleton.remove(), 450);
     }
   };
 
@@ -130,20 +102,12 @@ function initPageSkeleton() {
     window.addEventListener("load", hideSkeleton, { once: true });
   }
 
-  // mobile back button restores the page from bfcache and load never fires
-  // again, so the skeleton stays stuck until refresh. clear it here.
-  window.addEventListener("pageshow", (event) => {
-    if (!event.persisted) return;
-    hideSkeleton();
-    initImageSkeleton();
-  });
-
   const reduceMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
   ).matches;
   if (reduceMotion) return;
 
-  // bring the skeleton back when the user clicks an internal link
+  // show the skeleton again when the user navigates to another page
   document.querySelectorAll('a[href$=".html"]').forEach((link) => {
     link.addEventListener("click", (event) => {
       if (
@@ -162,7 +126,8 @@ function initPageSkeleton() {
 
       body.classList.remove("page-ready");
 
-      // clone it so the fade-in animation restarts on the next page
+      // the skeleton is removed once the page is ready → put it back for the
+      // next page (built fresh so the fade-in animation restarts)
       if (!document.getElementById("pageSkeleton") && skeleton) {
         const fresh = skeleton.cloneNode(true);
         fresh.id = "pageSkeleton";
