@@ -87,20 +87,23 @@ function initScrollToTop() {
 /* ---------- page skeleton (shown while the page loads / while navigating) ---------- */
 function initPageSkeleton() {
   const body = document.body;
-  const skeleton = document.getElementById("pageSkeleton");
 
   const hideSkeleton = () => {
+    // hide first (so it is never visible on a restored/back-forward page)
     body.classList.add("page-ready");
-    if (skeleton) {
-      setTimeout(() => skeleton.remove(), 450);
-    }
+    const skel = document.getElementById("pageSkeleton");
+    if (skel) skel.remove();
   };
 
   if (document.readyState === "complete") {
-    hideSkeleton();
+    requestAnimationFrame(hideSkeleton);
   } else {
     window.addEventListener("load", hideSkeleton, { once: true });
   }
+
+  // when the page is restored from the back/forward cache the DOM snapshot
+  // can contain the skeleton again → force it hidden
+  window.addEventListener("pageshow", hideSkeleton);
 
   const reduceMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
@@ -125,15 +128,6 @@ function initPageSkeleton() {
       if (url.href === window.location.href) return;
 
       body.classList.remove("page-ready");
-
-      // the skeleton is removed once the page is ready → put it back for the
-      // next page (built fresh so the fade-in animation restarts)
-      if (!document.getElementById("pageSkeleton") && skeleton) {
-        const fresh = skeleton.cloneNode(true);
-        fresh.id = "pageSkeleton";
-        fresh.style.display = "";
-        body.prepend(fresh);
-      }
     });
   });
 }

@@ -111,6 +111,11 @@ img.is-loaded {
     visibility 0.4s ease;
 }
 
+/* when the page is restored (back/forward) the skeleton must stay hidden */
+html.restored #pageSkeleton {
+  display: none !important;
+}
+
 .page-ready #pageSkeleton {
   opacity: 0;
   visibility: hidden;
