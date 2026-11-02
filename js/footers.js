@@ -9,7 +9,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const copyrightBlock = `
     <div class="copyright">
       <div class="container">
-        <span>&copy; ${new Date().getFullYear()} Copyright St.Estephan.ORG | All Right Reserved</span>
+        <div class="sentence">
+          <i class="fa-regular fa-copyright"></i>
+          <span>${new Date().getFullYear()} Copyright stestephan.org | All Right Reserved</span>
+          </div>
         <div class="chedilex-footer-container"></div>
       </div>
     </div>
