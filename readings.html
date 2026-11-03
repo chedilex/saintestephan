@@ -1,0 +1,110 @@
+<!doctype html>
+<html dir="rtl" lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#a40000" />
+    <meta
+      name="description"
+      content="رعية مار اسطفان - البترون، أخبار الرعية، مواعيد القداديس والحياة الروحية والخدمة الاجتماعية."
+    />
+    <title>رعية مار اسطفان - البترون</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link
+      rel="shortcut icon"
+      href="images/parish-logo.webp"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/readings.js" defer></script>
+    <script src="js/header.js" defer></script>
+    <script src="js/footers.js" defer></script>
+    <script src="js/script.js" defer></script>
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="top-strip" aria-hidden="true"></div>
+    <header id="header"></header>
+
+    <!-- Hero Section -->
+    <section class="secondHero churchbackground-left">
+      <div class="container">
+        <h2>القراءات اليومية</h2>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="intro">
+      <div class="container">
+        <!-- Tabs -->
+        <div
+          style="
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            justify-content: center;
+          "
+        >
+          <button
+            class="read-more"
+            onclick="openTab(event, 'gospel')"
+            id="btn-gospel"
+          >
+            إنجيل اليوم
+          </button>
+          <button
+            class="read-more"
+            onclick="openTab(event, 'message')"
+            id="btn-message"
+          >
+            رسالة اليوم
+          </button>
+        </div>
+
+        <!-- Gospel Tab -->
+        <div
+          id="gospel"
+          class="mass-card"
+          style="padding: 30px; display: block"
+        >
+          <p id="gospel-loading" style="text-align: center; color: #777">
+            جارٍ تحميل قراءة الإنجيل...
+          </p>
+          <div id="gospel-full"></div>
+        </div>
+
+        <!-- Message Tab -->
+        <div
+          id="message"
+          class="mass-card"
+          style="padding: 30px; display: none"
+        >
+          <p id="message-loading" style="text-align: center; color: #777">
+            جارٍ تحميل القراءة...
+          </p>
+          <div id="message-full"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- footer -->
+    <footer id="footer" class="footer" data-footer="paper"></footer>
+
+    <!-- back to top button -->
+    <a class="to-top" href="#header" id="toTop" aria-label="العودة إلى الأعلى"
+      ><i class="fa-solid fa-arrow-up"></i
+    ></a>
+
+    <!-- Unified readings script -->
+    <script src="readings.js"></script>
+  </body>
+</html>

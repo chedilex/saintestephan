@@ -303,7 +303,7 @@ p {
   border-radius: 0 0 13px 13px;
   background:
     linear-gradient(0deg, rgba(30, 18, 8, 0.62), rgba(30, 18, 8, 0.36)),
-    url("../images/hero-image.webp") center 78% / cover no-repeat,
+    url("../images/hero-images.webp") center 10% / cover no-repeat,
     #7a6145;
 }
 .hero::after {
@@ -346,7 +346,7 @@ p {
 .secondHero h2 {
   color: var(--red);
   font-weight: 900;
-  font-size: clamp(var(--fs-lg), 6vw, 55px);
+  font-size: clamp(var(--fs-lg), 7vw, 55px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -758,10 +758,15 @@ a.mass-card {
 }
 .priest-img-wrap img {
   border-radius: 50%;
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
   border: 5px solid var(--red);
 }
+
+.priest-card h5 {
+  font-size: var(--fs-sm);
+}
+
 .images-grid {
   display: flex;
   flex-wrap: wrap;
@@ -828,13 +833,13 @@ footer {
   display: block;
 }
 .footer-col h3 {
-  font-size: var(--fs-sm);
+  font-size: var(--fs-md);
   color: var(--red);
   margin: 0 0 13px;
   font-weight: 800;
 }
 .footer-col a {
-  font-size: var(--fs-sm);
+  font-size: var(--fs-md);
   color: var(--red-soft);
   margin: 8px 0;
   font-weight: 600;
@@ -847,7 +852,7 @@ footer {
 .footer-brand h3 {
   color: #4a413b;
   margin: 0;
-  font-size: var(--fs-lg);
+  font-size: var(--fs-md);
 }
 .footer-brand p {
   color: #999;

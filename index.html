@@ -25,6 +25,7 @@
       type="image/x-icon"
     />
     <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/readings.js" defer></script>
     <script src="js/header.js" defer></script>
     <script src="js/footers.js" defer></script>
     <script src="js/script.js" defer></script>
@@ -95,7 +96,7 @@
               <a class="news-card" href="#message">
                 <img
                   class="news-thumb"
-                  src="images/church-news.webp"
+                  src="priests images/none-priest.webp"
                   alt=""
                   onerror="
                     this.src = 'images/church-interior.webp';
@@ -114,7 +115,7 @@
               <a class="news-card" href="#message">
                 <img
                   class="news-thumb"
-                  src="images/church-news.webp"
+                  src="priests images/none-priest.webp"
                   alt=""
                   onerror="
                     this.src = 'images/church-interior.webp';
@@ -148,27 +149,37 @@
               <p>5:00 مساءً في كنيسة مار اسطفان</p>
             </article>
           </section>
-          <!-- enjil and risele -->
-          <section class="contentData">
-            <div class="title" id="massTitle"><h2>القراءات اليوميّة</h2></div>
-            <a href="google.com" class="mass-card todayData">
+          <!-- Daily readings loaded from Evangelizo API -->
+          <section class="contentData" aria-labelledby="dailyReadingsTitle">
+            <div class="title" id="dailyReadingsTitle">
+              <h2>القراءات اليوميّة</h2>
+            </div>
+
+            <a
+              href="readings.html?type=epistle"
+              class="mass-card todayData"
+              data-reading="epistle"
+              id="epistle-card"
+            >
               <div>
-                <h3>رسالة اليوم</h3>
-                <p>عبرانيين 10 ، 11 - 18</p>
+                <h3 id="epistle-title">رسالة اليوم</h3>
+                <p class="reading-summary" id="epistle-summary">
+                  جارٍ تحميل القراءة...
+                </p>
               </div>
               <i class="fa-solid fa-chevron-left news-arrow"></i>
             </a>
-            <a href="google.com" class="mass-card todayData">
+
+            <a
+              href="readings.html?type=gospel"
+              class="mass-card todayData"
+              data-reading="gospel"
+            >
               <div>
                 <h3>إنجيل اليوم</h3>
-                <p>يوحنا 17 ، 1 - 8</p>
-              </div>
-              <i class="fa-solid fa-chevron-left news-arrow"></i>
-            </a>
-            <a href="google.com" class="mass-card todayData">
-              <div>
-                <h3>قديس اليوم</h3>
-                <p>أكندينوس ورفاقه - تذكار الموتى</p>
+                <p class="reading-summary" id="gospel-summary">
+                  جارٍ تحميل القراءة...
+                </p>
               </div>
               <i class="fa-solid fa-chevron-left news-arrow"></i>
             </a>
