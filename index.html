@@ -89,11 +89,11 @@
       <section class="paperbackground churchbackground-right intro" id="news">
         <div class="container intro-grid">
           <!-- news -->
-          <section aria-labelledby="newsTitle">
+          <section aria-labelledby="newsTitle" class="reveal">
             <div class="title" id="newsTitle"><h2>أخبار الرعية</h2></div>
             <div class="news-list" id="newsList">
               <!-- new 1 -->
-              <a class="news-card" href="#message">
+              <a class="news-card reveal" href="#message">
                 <img
                   class="news-thumb"
                   src="priests images/none-priest.webp"
@@ -112,7 +112,7 @@
                 <i class="fa-solid fa-chevron-left news-arrow"></i>
               </a>
               <!-- new 1 -->
-              <a class="news-card" href="#message">
+              <a class="news-card reveal" href="#message">
                 <img
                   class="news-thumb"
                   src="priests images/none-priest.webp"
@@ -137,27 +137,30 @@
           </section>
 
           <!-- mass time -->
-          <section aria-labelledby="massTitle">
+          <section aria-labelledby="massTitle" class="reveal">
             <div class="title" id="massTitle"><h2>القداديس</h2></div>
-            <article class="mass-card">
+            <article class="mass-card reveal">
               <h3>أيام الأسبوع</h3>
               <p>5:00 مساءً في كنيسة مار اسطفان</p>
             </article>
-            <article class="mass-card">
+            <article class="mass-card reveal">
               <h3>أيام الآحاد والأعياد</h3>
               <p>7:00 و9:00 و10:30 صباحًا في كنيسة مار اسطفان</p>
               <p>5:00 مساءً في كنيسة مار اسطفان</p>
             </article>
           </section>
           <!-- Daily readings loaded from Evangelizo API -->
-          <section class="contentData" aria-labelledby="dailyReadingsTitle">
+          <section
+            class="contentData reveal"
+            aria-labelledby="dailyReadingsTitle"
+          >
             <div class="title" id="dailyReadingsTitle">
               <h2>القراءات اليوميّة</h2>
             </div>
 
             <a
               href="readings.html?type=epistle"
-              class="mass-card todayData"
+              class="mass-card todayData reveal"
               data-reading="epistle"
               id="epistle-card"
             >
@@ -172,7 +175,7 @@
 
             <a
               href="readings.html?type=gospel"
-              class="mass-card todayData"
+              class="mass-card todayData reveal"
               data-reading="gospel"
             >
               <div>
@@ -189,10 +192,10 @@
 
       <!-- about st estephan -->
       <section class="saint-section" id="about">
-        <div class="container title"><h2>مار اسطفان</h2></div>
+        <div class="container title reveal"><h2>مار اسطفان</h2></div>
         <div class="container saint-grid">
           <!-- Article -->
-          <article class="saint-copy">
+          <article class="saint-copy reveal">
             <h3>نبذة</h3>
             <p>
               القديس اسطفانوس هو أول الشهداء في الكنيسة، وهو مثال للإيمان الثابت
@@ -217,7 +220,7 @@
           </article>
 
           <!-- Image -->
-          <div class="saint-image-wrap">
+          <div class="saint-image-wrap reveal">
             <img
               class="saint-image"
               src="images/saint-stephen.webp"
@@ -234,7 +237,7 @@
       <!-- services -->
       <section class="services-section churchbackground-right" id="services">
         <div class="container">
-          <div class="title services-sec">
+          <div class="title services-sec reveal">
             <h2>رعية مار اسطفان</h2>
             <p class="section-note">
               تاريخ عريق من الإيمان والخدمة في قلب البترون
@@ -242,7 +245,7 @@
           </div>
           <div class="services-grids-display">
             <div class="service-grid">
-              <article class="service-card">
+              <article class="service-card reveal">
                 <div class="service-icon">
                   <i class="fa-solid fa-landmark"></i>
                 </div>
@@ -252,7 +255,7 @@
                   حافلًا بالإيمان والعطاء عبر الأجيال المتعاقبة.
                 </p>
               </article>
-              <article class="service-card">
+              <article class="service-card reveal">
                 <div class="service-icon">
                   <i class="fa-solid fa-hands-praying"></i>
                 </div>
@@ -262,7 +265,7 @@
                   والنشاطات الكنسية لتعزيز إيمان المؤمنين.
                 </p>
               </article>
-              <article class="service-card">
+              <article class="service-card reveal">
                 <div class="service-icon">
                   <i class="fa-solid fa-people-group"></i>
                 </div>

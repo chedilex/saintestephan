@@ -727,8 +727,16 @@ a.mass-card {
 /* priest section */
 .priest-scroll-container {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   overflow-x: auto;
+  scroll-behavior: smooth;
+  position: relative;
+  anchor-name: --carousel;
+  scroll-snap-type: x mandatory;
 }
+
 .priest-scroll-container::-webkit-scrollbar {
   height: 4px;
   border-radius: 10px;
@@ -741,30 +749,73 @@ a.mass-card {
   border-radius: 10px;
   background: var(--red);
 }
+
 .priest-flex {
   display: flex;
   gap: 30px;
   align-items: flex-start;
   justify-content: flex-start;
   width: max-content;
-  max-width: none;
   font-size: var(--fs-lg);
 }
+
 .priest-card {
+  flex: 0 0 auto;
+  width: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  scroll-snap-align: start;
 }
 .priest-img-wrap img {
   border-radius: 50%;
   width: 150px;
   height: 150px;
   border: 5px solid var(--red);
+  object-fit: cover;
 }
-
 .priest-card h5 {
   font-size: var(--fs-sm);
+  text-align: center;
+}
+
+.priest-scroll-container::scroll-button(left),
+.priest-scroll-container::scroll-button(right) {
+  bottom: 0;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  background: var(--red);
+  color: var(--paper);
+  font-size: var(--fs-md);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  z-index: 2;
+  margin-top: 200px;
+  position: fixed;
+  position-anchor: --carousel;
+}
+
+.priest-scroll-container::scroll-button(left) {
+  content: "›";
+  position-area: center left;
+  translate: 50%;
+}
+.priest-scroll-container::scroll-button(right) {
+  content: "‹";
+  position-area: center right;
+  translate: -50%;
+}
+
+.priest-scroll-container::scroll-button(left):disabled,
+.priest-scroll-container::scroll-button(right):disabled {
+  opacity: 0.5;
+  cursor: default;
 }
 
 .images-grid {
@@ -774,7 +825,7 @@ a.mass-card {
 }
 .gallery-item img {
   width: 100%;
-  height: 100%;
+  height: 250px;
 }
 
 /* religions groups page */
@@ -1045,5 +1096,28 @@ footer {
   }
   .news-copy h3 {
     font-size: var(--fs-sm);
+  }
+}
+
+/* ===== Scroll Reveal ===== */
+html.js-enabled .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.65s ease,
+    transform 0.65s ease;
+}
+
+html.js-enabled .reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html.js-enabled .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
