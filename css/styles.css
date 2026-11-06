@@ -366,15 +366,17 @@ p {
   align-items: start;
 }
 .mass-card,
+.content-card,
 .news-card {
   background: rgba(255, 255, 255, 0.94);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
 }
-.mass-card {
+.mass-card,
+.content-card {
   position: relative;
   border-radius: var(--radius);
-  padding: 15px 20px;
+  padding: 20px;
   margin-bottom: 13px;
   box-shadow: 0 4px 14px rgba(40, 28, 18, 0.1);
   overflow: hidden;
@@ -394,7 +396,8 @@ a.mass-card {
   align-items: center;
 }
 
-.mass-card::before {
+.mass-card::before,
+.content-card::before {
   content: "";
   position: absolute;
   inset-inline-start: 0;
@@ -405,14 +408,17 @@ a.mass-card {
   opacity: 0;
   transition: opacity 0.25s ease;
 }
-.mass-card:hover {
+.mass-card:hover,
+.content-card:hover {
   transform: var(--tranformLateY);
   box-shadow: 0 10px 24px rgba(40, 28, 18, 0.18);
 }
-.mass-card:hover::before {
+.mass-card:hover::before,
+.content-card:hover::before {
   opacity: 1;
 }
-.mass-card h3 {
+.mass-card h3,
+.content-card h3 {
   margin: 0 0 5px;
   color: var(--red);
   font-weight: 800;
@@ -738,7 +744,7 @@ a.mass-card {
 }
 
 .priest-scroll-container::-webkit-scrollbar {
-  height: 4px;
+  height: 6px;
   border-radius: 10px;
 }
 .priest-scroll-container::-webkit-scrollbar-track {
@@ -746,6 +752,7 @@ a.mass-card {
   background: var(--paper);
 }
 .priest-scroll-container::-webkit-scrollbar-thumb {
+  cursor: pointer;
   border-radius: 10px;
   background: var(--red);
 }
@@ -778,44 +785,6 @@ a.mass-card {
 .priest-card h5 {
   font-size: var(--fs-sm);
   text-align: center;
-}
-
-.priest-scroll-container::scroll-button(left),
-.priest-scroll-container::scroll-button(right) {
-  bottom: 0;
-  width: 30px;
-  height: 30px;
-  border: none;
-  border-radius: 50%;
-  background: var(--red);
-  color: var(--paper);
-  font-size: var(--fs-md);
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-self: center;
-  z-index: 2;
-  margin-top: 200px;
-  position: fixed;
-  position-anchor: --carousel;
-}
-
-.priest-scroll-container::scroll-button(left) {
-  content: "›";
-  position-area: center left;
-  translate: 50%;
-}
-.priest-scroll-container::scroll-button(right) {
-  content: "‹";
-  position-area: center right;
-  translate: -50%;
-}
-
-.priest-scroll-container::scroll-button(left):disabled,
-.priest-scroll-container::scroll-button(right):disabled {
-  opacity: 0.5;
-  cursor: default;
 }
 
 .images-grid {
@@ -1096,28 +1065,5 @@ footer {
   }
   .news-copy h3 {
     font-size: var(--fs-sm);
-  }
-}
-
-/* ===== Scroll Reveal ===== */
-html.js-enabled .reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition:
-    opacity 0.65s ease,
-    transform 0.65s ease;
-}
-
-html.js-enabled .reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Respect reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  html.js-enabled .reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
   }
 }

@@ -12,17 +12,15 @@
     return `${year}-${month}-${day}`;
   }
 
-  // Extracts and parses the date from the RSS item title (e.g., "الثلاثاء، ٣ نوفمبر : ...")
+  // Extracts and parses the date from the RSS item title
   function extractDateFromTitle(title) {
     if (!title) return null;
-
     const match = title.match(/(\d+|٠|١|٢|٣|٤|٥|٦|٧|٨|٩)+\s+(\S+)/);
     if (!match) return null;
 
     const dayStr = match[1];
     const monthStr = match[2];
 
-    // Convert Arabic numerals to English digits
     const arabicToEnglish = {
       "٠": "0",
       "١": "1",
@@ -38,7 +36,6 @@
 
     const day = parseInt(dayStr.replace(/[٠-٩]/g, (d) => arabicToEnglish[d]));
 
-    // Map Arabic month names to standard month numbers
     const months = {
       يناير: 1,
       "كانون الثاني": 1,
@@ -67,14 +64,32 @@
     };
 
     const month = months[monthStr];
-
     if (!day || !month) return null;
 
     const year = new Date().getFullYear();
     return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
   }
 
-  // Fetches the RSS feed and filters down to today's readings only
+  // Cleans the title to make it suitable for browser tab display
+  // Removes the date part (e.g., "الأربعاء، ٤ نوفمبر : ") and verse numbers (e.g., ".33-25:14")
+  function cleanTitleForBrowser(title) {
+    if (!title) return "القراءات اليومية";
+
+    let clean = title;
+
+    // Remove the date part before the colon (e.g., "الأربعاء، ٤ نوفمبر : ")
+    clean = clean.replace(/^[^:]+:\s*/, "");
+
+    // Remove verse numbers at the end (e.g., ".33-25:14" or ".13-9:17")
+    clean = clean.replace(/\s*[\.\s]\d+[\-\d:]*\s*$/, "");
+
+    // Clean up any extra spaces
+    clean = clean.trim();
+
+    return clean || "القراءات اليومية";
+  }
+
+  // Fetches the RSS feed and filters down to today's Gospel and Meditation only
   function fetchReadings() {
     const todayDate = getTodayDate();
 
@@ -86,10 +101,7 @@
       .then((str) => new window.DOMParser().parseFromString(str, "text/xml"))
       .then((data) => {
         const items = data.querySelectorAll("item");
-        const readings = {
-          gospel: null,
-          epistle: null, // MEDITATIO or LECTIO
-        };
+        const readings = { gospel: null, meditation: null };
 
         items.forEach((item) => {
           const category = item.querySelector("category")?.textContent?.trim();
@@ -99,17 +111,12 @@
             ?.textContent?.trim();
 
           const itemDate = extractDateFromTitle(title);
-
-          // Skip anything that isn't for today
           if (itemDate !== todayDate) return;
 
           if (category === "EVANGELIUM" && !readings.gospel) {
             readings.gospel = { category, title, description };
-          } else if (
-            (category === "MEDITATIO" || category === "LECTIO") &&
-            !readings.epistle
-          ) {
-            readings.epistle = { category, title, description };
+          } else if (category === "MEDITATIO" && !readings.meditation) {
+            readings.meditation = { category, title, description };
           }
         });
 
@@ -129,25 +136,54 @@
       : clean;
   }
 
-  // Returns the appropriate title for the epistle/meditation card
-  function getEpistleTitle(category) {
-    if (category === "MEDITATIO") return "تأمل اليوم";
-    if (category === "LECTIO") return "قراءة اليوم";
-    return "رسالة اليوم";
+  // Updates Open Graph Meta Tags dynamically for better social sharing
+  function updateMetaTags(gospelTitle, meditationTitle) {
+    // Clean the titles for browser display
+    const cleanGospelTitle = cleanTitleForBrowser(gospelTitle);
+    const cleanMeditationTitle = cleanTitleForBrowser(meditationTitle);
+
+    // Set page title - show the main reading (Gospel)
+    // const pageTitle =
+    //   cleanGospelTitle !== "القراءات اليومية"
+    //     ? `${cleanGospelTitle} - رعية مار اسطفان`
+    //     : "القراءات اليومية - رعية مار اسطفان";
+
+    // document.title = pageTitle;
+
+    // Update Open Graph meta tags
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+
+    if (ogTitle) ogTitle.setAttribute("content", pageTitle);
+
+    if (ogDesc) {
+      let descText = "";
+      if (
+        cleanGospelTitle !== "القراءات اليومية" &&
+        cleanMeditationTitle !== "القراءات اليومية"
+      ) {
+        descText = `إنجيل: ${cleanGospelTitle} | تأمل: ${cleanMeditationTitle}`;
+      } else if (cleanGospelTitle !== "القراءات اليومية") {
+        descText = `قراءة إنجيل اليوم: ${cleanGospelTitle}`;
+      } else {
+        descText =
+          "القراءات اليومية (الإنجيل والتأمل) من رعية مار اسطفان - البترون";
+      }
+      ogDesc.setAttribute("content", descText);
+    }
   }
 
   // Populates the daily readings preview cards on the index page
   function initIndexPage() {
-    const epistleCard = document.getElementById("epistle-card");
-    const epistleTitle = document.getElementById("epistle-title");
-    const epistleSummary = document.getElementById("epistle-summary");
+    const meditationCard = document.getElementById("meditation-card");
+    const meditationTitle = document.getElementById("meditation-title");
+    const meditationSummary = document.getElementById("meditation-summary");
     const gospelSummary = document.getElementById("gospel-summary");
 
-    if (!epistleCard && !gospelSummary) return; // Exit if we aren't on the index page
+    if (!meditationCard && !gospelSummary) return;
 
     fetchReadings()
       .then((readings) => {
-        // Render Gospel preview
         if (readings.gospel && gospelSummary) {
           const short = buildSummary(readings.gospel.description, 130);
           gospelSummary.innerHTML = `<strong>${readings.gospel.title}</strong><br><br>${short}`;
@@ -155,76 +191,46 @@
           gospelSummary.textContent = "لا تتوفر قراءة للإنجيل اليوم.";
         }
 
-        // Render Epistle/Meditation preview
-        if (readings.epistle) {
-          const short = buildSummary(readings.epistle.description, 130);
-          if (epistleSummary) {
-            epistleSummary.innerHTML = `<strong>${readings.epistle.title}</strong><br><br>${short}`;
+        if (readings.meditation) {
+          const short = buildSummary(readings.meditation.description, 130);
+          if (meditationSummary) {
+            meditationSummary.innerHTML = `<strong>${readings.meditation.title}</strong><br><br>${short}`;
           }
-          if (epistleTitle) {
-            epistleTitle.textContent = getEpistleTitle(
-              readings.epistle.category,
-            );
-          }
+          if (meditationTitle) meditationTitle.textContent = "تأمل اليوم";
         } else {
-          // Hide the card if nothing is available today
-          if (epistleCard) epistleCard.style.display = "none";
+          if (meditationCard) meditationCard.style.display = "none";
         }
       })
       .catch((err) => {
         console.error("Error fetching RSS:", err);
         const errorMsg = "حدث خطأ في تحميل القراءات.";
-        if (epistleSummary) epistleSummary.textContent = errorMsg;
+        if (meditationSummary) meditationSummary.textContent = errorMsg;
         if (gospelSummary) gospelSummary.textContent = errorMsg;
       });
   }
 
-  // Handles tab switching and displays full readings content on the readings page
+  // Handles displaying full readings content on the readings page
   function initReadingsPage() {
-    const btnGospel = document.getElementById("btn-gospel");
-    const btnMessage = document.getElementById("btn-message");
-    const gospelTab = document.getElementById("gospel");
-    const messageTab = document.getElementById("message");
     const gospelLoading = document.getElementById("gospel-loading");
-    const messageLoading = document.getElementById("message-loading");
+    const meditationLoading = document.getElementById("meditation-loading");
     const gospelFull = document.getElementById("gospel-full");
-    const messageFull = document.getElementById("message-full");
+    const meditationFull = document.getElementById("meditation-full");
+    const shareBtn = document.getElementById("share-btn");
 
-    if (!btnGospel || !gospelTab) return; // Exit if we aren't on the readings page
+    if (!gospelLoading || !meditationLoading) return;
 
-    // Tab switching logic
-    function openTab(tabName) {
-      gospelTab.style.display = "none";
-      messageTab.style.display = "none";
-      btnGospel.style.opacity = "0.7";
-      btnMessage.style.opacity = "0.7";
-
-      const target = document.getElementById(tabName);
-      if (target) target.style.display = "block";
-
-      const activeBtn = tabName === "gospel" ? btnGospel : btnMessage;
-      if (activeBtn) activeBtn.style.opacity = "1";
-    }
-
-    // Expose globally for inline onclick handlers
-    window.openTab = function (evt, tabName) {
-      openTab(tabName);
-    };
-
-    // Open the correct tab based on URL parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const typeParam = urlParams.get("type");
-    const initialTab = typeParam === "epistle" ? "message" : "gospel";
-    openTab(initialTab);
-
-    // Fetch and render the full text for both sections
     fetchReadings()
       .then((readings) => {
+        let gTitle = "",
+          mTitle = "";
+
+        // Render Gospel
         if (readings.gospel) {
+          gTitle = readings.gospel.title;
           if (gospelLoading) gospelLoading.style.display = "none";
           if (gospelFull) {
             gospelFull.innerHTML = `
-              <h3 style="color: var(--red); margin-bottom: 20px;">${readings.gospel.title}</h3>
+              <h3><i class="fa-solid fa-book-bible"></i> ${readings.gospel.title}</h3>
               <div style="line-height: 2;">${readings.gospel.description}</div>
             `;
           }
@@ -232,30 +238,62 @@
           gospelLoading.textContent = "لا تتوفر قراءة للإنجيل اليوم.";
         }
 
-        if (readings.epistle) {
-          if (messageLoading) messageLoading.style.display = "none";
-          if (messageFull) {
-            messageFull.innerHTML = `
-              <h3 style="color: var(--red); margin-bottom: 20px;">${readings.epistle.title}</h3>
-              <div style="line-height: 2;">${readings.epistle.description}</div>
+        // Render Meditation
+        if (readings.meditation) {
+          mTitle = readings.meditation.title;
+          if (meditationLoading) meditationLoading.style.display = "none";
+          if (meditationFull) {
+            meditationFull.innerHTML = `
+              <h3><i class="fa-solid fa-hands-praying"></i> ${readings.meditation.title}</h3>
+              <div style="line-height: 2;">${readings.meditation.description}</div>
             `;
           }
-          if (btnMessage) {
-            btnMessage.textContent = getEpistleTitle(readings.epistle.category);
-          }
-        } else {
-          if (messageLoading) {
-            messageLoading.textContent = "لا تتوفر رسالة أو تأمل اليوم.";
-          }
-          if (btnMessage) btnMessage.style.display = "none";
+        } else if (meditationLoading) {
+          meditationLoading.textContent = "لا يتوفر تأمل اليوم.";
         }
+
+        // Update Meta Tags for Social Sharing once data is loaded
+        updateMetaTags(gTitle, mTitle);
       })
       .catch((err) => {
         console.error("Error fetching RSS:", err);
         const errorMsg = "حدث خطأ في تحميل القراءات. يرجى المحاولة لاحقًا.";
         if (gospelLoading) gospelLoading.textContent = errorMsg;
-        if (messageLoading) messageLoading.textContent = errorMsg;
+        if (meditationLoading) meditationLoading.textContent = errorMsg;
       });
+
+    // Share Button Logic
+    if (shareBtn) {
+      shareBtn.addEventListener("click", async () => {
+        const shareData = {
+          title: document.title,
+          text: "القراءات اليومية (الإنجيل والتأمل) من رعية مار اسطفان - البترون",
+          url: window.location.href,
+        };
+
+        if (navigator.share) {
+          try {
+            await navigator.share(shareData);
+          } catch (err) {
+            console.log("Share canceled or failed:", err);
+          }
+        } else {
+          try {
+            await navigator.clipboard.writeText(window.location.href);
+            const originalText = shareBtn.innerHTML;
+            shareBtn.innerHTML = `<i class="fa-solid fa-check" style="margin-left: 8px;"></i> تم نسخ الرابط!`;
+            shareBtn.style.background = "#28a745";
+            setTimeout(() => {
+              shareBtn.innerHTML = originalText;
+              shareBtn.style.background = "";
+            }, 2000);
+          } catch (err) {
+            console.error("Failed to copy:", err);
+            alert("تعذر نسخ الرابط، يرجى نسخه يدوياً من شريط العنوان.");
+          }
+        }
+      });
+    }
   }
 
   // Initialize once the DOM is fully loaded

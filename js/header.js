@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <a href="news.html">أخبار الرعية</a>
         <a href="religious_groups.html">الجماعات</a>
         <a href="message.html">رسالة الأحد</a>
+        <a href="readings.html">القراءات اليومية</a>
       </nav>
       <button
         class="nav-toggle"

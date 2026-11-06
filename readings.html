@@ -6,9 +6,29 @@
     <meta name="theme-color" content="#a40000" />
     <meta
       name="description"
-      content="رعية مار اسطفان - البترون، أخبار الرعية، مواعيد القداديس والحياة الروحية والخدمة الاجتماعية."
+      content="القراءات اليومية (الإنجيل والتأمل) من رعية مار اسطفان - البترون"
     />
-    <title>رعية مار اسطفان - البترون</title>
+
+    <!-- Open Graph Meta Tags for Social Sharing -->
+    <meta property="og:title" content="القراءات اليومية - رعية مار اسطفان" />
+    <meta
+      property="og:description"
+      content="إنجيل وتأمل اليوم من رعية مار اسطفان - البترون"
+    />
+    <meta
+      property="og:image"
+      content="https://chedilex.github.io/saintestephan/images/hero-images.webp"
+    />
+    <!-- استبدل yourdomain.com برابط موقعك الفعلي -->
+    <meta
+      property="og:url"
+      content="https://chedilex.github.io/saintestephan/readings.html"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="ar_AR" />
+
+    <title>القراءات اليومية - رعية مار اسطفان</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -25,12 +45,49 @@
       type="image/x-icon"
     />
     <link rel="stylesheet" href="css/styles.css" />
+
     <script src="js/readings.js" defer></script>
     <script src="js/header.js" defer></script>
     <script src="js/footers.js" defer></script>
     <script src="js/script.js" defer></script>
   </head>
   <body>
+    <!-- skeleton loading -->
+    <div id="pageSkeleton" aria-hidden="true">
+      <div class="sk-top"></div>
+      <div class="sk-nav"></div>
+      <div class="sk-hero skeleton-shimmer"></div>
+      <div class="container">
+        <div class="sk-line sk-title skeleton-shimmer"></div>
+        <div class="sk-line skeleton-shimmer"></div>
+        <div class="sk-line skeleton-shimmer"></div>
+        <div class="sk-line sk-short skeleton-shimmer"></div>
+        <div class="sk-grid">
+          <div class="sk-card">
+            <div class="sk-media skeleton-shimmer"></div>
+            <div class="sk-body">
+              <div class="sk-line skeleton-shimmer"></div>
+              <div class="sk-line sk-short skeleton-shimmer"></div>
+            </div>
+          </div>
+          <div class="sk-card">
+            <div class="sk-media skeleton-shimmer"></div>
+            <div class="sk-body">
+              <div class="sk-line skeleton-shimmer"></div>
+              <div class="sk-line sk-short skeleton-shimmer"></div>
+            </div>
+          </div>
+          <div class="sk-card">
+            <div class="sk-media skeleton-shimmer"></div>
+            <div class="sk-body">
+              <div class="sk-line skeleton-shimmer"></div>
+              <div class="sk-line sk-short skeleton-shimmer"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Header -->
     <div class="top-strip" aria-hidden="true"></div>
     <header id="header"></header>
@@ -45,54 +102,56 @@
     <!-- Main Content -->
     <section class="intro">
       <div class="container">
-        <!-- Tabs -->
-        <div
-          style="
-            display: flex;
-            gap: 15px;
-            margin-bottom: 30px;
-            justify-content: center;
-          "
-        >
-          <button
-            class="read-more"
-            onclick="openTab(event, 'gospel')"
-            id="btn-gospel"
-          >
-            إنجيل اليوم
-          </button>
-          <button
-            class="read-more"
-            onclick="openTab(event, 'message')"
-            id="btn-message"
-          >
-            رسالة اليوم
-          </button>
+        <!-- التبشير الملائكي (The Angelus) -->
+        <div class="content-card">
+          <h3><i class="fa-solid fa-church"></i> التبشير الملائكي</h3>
+          <p>
+            <strong> ملاك الربّ بشّر سيدتنا مريم العذراء </strong><br />
+            فحَبِلَت من الروح القدس
+          </p>
+          <p>
+            <strong> قالت مريم للملاك: ها أنا أمةُ الربّ </strong><br />
+            فليكن لي حسب قولك
+          </p>
+          <p>
+            <strong> الكلمةُ صار جسدًا </strong><br />
+            وسكن بيننا
+          </p>
+          <br />
+          <p>تضرعي لأجلنا يا والدة الله القدّيسة ، لكي نستحق مواعيد المسيح.</p>
+          <p>
+            <strong>
+              نسألك اللّهم، أن تفيض نعمتك على عقولنا، حتى أننا نحن الذين عرفنا،
+              تجسّد المسيح ابنك ببشارة الملاك، نبلغ بواسطة آلامه وصلبه إلى مجد
+              القيامة . آمين.
+            </strong>
+          </p>
         </div>
-
-        <!-- Gospel Tab -->
-        <div
-          id="gospel"
-          class="mass-card"
-          style="padding: 30px; display: block"
-        >
+        <!-- Gospel reading -->
+        <div id="gospel" class="mass-card">
           <p id="gospel-loading" style="text-align: center; color: #777">
             جارٍ تحميل قراءة الإنجيل...
           </p>
           <div id="gospel-full"></div>
         </div>
 
-        <!-- Message Tab -->
-        <div
-          id="message"
-          class="mass-card"
-          style="padding: 30px; display: none"
-        >
-          <p id="message-loading" style="text-align: center; color: #777">
-            جارٍ تحميل القراءة...
+        <!-- Meditation reading -->
+        <div id="meditation" class="mass-card">
+          <p id="meditation-loading" style="text-align: center; color: #777">
+            جارٍ تحميل التأمل...
           </p>
-          <div id="message-full"></div>
+          <div id="meditation-full"></div>
         </div>
+
+        <!-- Share Button -->
+        <button
+          id="share-btn"
+          class="read-more"
+          style="width: 100%; justify-content: center; margin-bottom: 24px"
+        >
+          <i class="fa-solid fa-share-nodes" style="margin-left: 8px"></i>
+          مشاركة القراءات
+        </button>
       </div>
     </section>
 
@@ -103,8 +162,5 @@
     <a class="to-top" href="#header" id="toTop" aria-label="العودة إلى الأعلى"
       ><i class="fa-solid fa-arrow-up"></i
     ></a>
-
-    <!-- Unified readings script -->
-    <script src="readings.js"></script>
   </body>
 </html>

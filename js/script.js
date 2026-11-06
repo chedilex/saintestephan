@@ -3,8 +3,6 @@
    Adapted to match the Assia website's observer and loading patterns.
    ========================================================== */
 
-document.documentElement.classList.add("js-enabled");
-
 document.addEventListener("DOMContentLoaded", () => {
   const body = document.body;
 
@@ -132,36 +130,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ===== Scroll Reveal (Adapted from Assia) =====
-  // Now only looks for the .reveal class.
-  const animatedElements = document.querySelectorAll(".reveal");
-
-  if ("IntersectionObserver" in window) {
-    const revealObserver = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.12,
-        rootMargin: "0px 0px -35px 0px",
-      },
-    );
-
-    animatedElements.forEach((element) => {
-      revealObserver.observe(element);
-    });
-  } else {
-    // Fallback for older browsers
-    animatedElements.forEach((element) => {
-      element.classList.add("is-visible");
-    });
-  }
-
   // ===== Read More News (Kept from original) =====
   if (readMoreBtn && newsList) {
     readMoreBtn.addEventListener("click", function () {
@@ -172,24 +140,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
       extra.forEach(([title, category]) => {
         const card = document.createElement("a");
-        card.className = "news-card reveal"; // Added .reveal here so new cards animate too
+        card.className = "news-card";
         card.href = "#services";
         card.innerHTML =
-          '<img class="news-thumb" src="images/church-news.webp" alt="">' +
+          '<img class="news-thumb" src="images/hero-images.webp" alt="">' +
           '<div class="news-copy"><h3></h3><p></p></div>' +
           '<i class="fa-solid fa-chevron-left news-arrow"></i>';
         card.querySelector("h3").textContent = title;
         card.querySelector("p").textContent = category;
         newsList.appendChild(card);
-
-        // Observe the newly created card
-        if ("IntersectionObserver" in window) {
-          // Note: this requires revealObserver to be in scope.
-          // Since it is, it works perfectly here.
-          revealObserver.observe(card);
-        } else {
-          card.classList.add("is-visible");
-        }
       });
 
       this.disabled = true;
